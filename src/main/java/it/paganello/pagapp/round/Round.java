@@ -1,4 +1,4 @@
-package it.paganello.pagapp.Round;
+package it.paganello.pagapp.round;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
