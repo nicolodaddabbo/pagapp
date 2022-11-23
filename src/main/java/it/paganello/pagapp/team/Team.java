@@ -39,4 +39,8 @@ public class Team {
     @ManyToOne
     @JoinColumn(name = "TRN_ID")
     private Tournament tournament;
+
+    public Team(final String name) {
+        this.name = name;
+    }
 }

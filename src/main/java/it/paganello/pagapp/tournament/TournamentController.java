@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(value = "/tournaments")
 public class TournamentController {
     @Autowired
-    TournamentService tournamentService;
+    TournamentService service;
 
     @PostMapping
     public Tournament createTournament(@RequestBody Tournament tournament) {
-        return tournamentService.createTournament(tournament); 
+        return service.createTournament(tournament); 
     }
 
     @GetMapping
     public List<Tournament> getTournaments() {
-        return tournamentService.getTournaments();
+        return service.getTournaments();
     }
     
     @GetMapping("/{id}")
     public Tournament getTournamentById(@PathVariable Long id) {
-        return tournamentService.getTournamentById(id);
+        return service.getTournamentById(id);
     }
 }

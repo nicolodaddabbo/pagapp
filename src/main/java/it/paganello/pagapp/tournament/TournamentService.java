@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class TournamentService {
     @Autowired
-    TournamentRepository tournamentRepository;
+    TournamentRepository repository;
 
     public Tournament createTournament(final Tournament tournament) {
-        return tournamentRepository.save(tournament);
+        return repository.save(tournament);
     }
 
     public Tournament getTournamentById(final Long id) {
-        return tournamentRepository.findById(id)
+        return repository.findById(id)
             .orElseThrow(() -> new TournamentNotFoundException(id));
     }
 
     public List<Tournament> getTournaments() {
-        return tournamentRepository.findAll();
+        return repository.findAll();
     }
 }

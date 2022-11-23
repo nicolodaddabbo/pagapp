@@ -1,6 +1,7 @@
 package it.paganello.pagapp.tournament;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +26,17 @@ public class Tournament {
     private int currentRoundNumber;
 
     @OneToMany(mappedBy = "tournament")
-    private Set<Team> teams;
+    private List<Team> teams;
     @OneToMany(mappedBy = "tournament")
-    private Set<Round> rounds;
+    private List<Round> rounds;
     @Transient
-    private Set<MatchingAlgorithm> matchingAlgorithms;
+    private List<MatchingAlgorithm> matchingAlgorithms;
+
+    public Tournament() {
+    }
+
+    public Tournament(final String name, final List<Team> teams) {
+        this.name = name;
+        this.teams = new ArrayList<>(teams);
+    }
 }
