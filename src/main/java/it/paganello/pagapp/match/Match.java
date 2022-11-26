@@ -36,4 +36,70 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "ROU_ID")
     private Round round;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public int getHomeTeamPoints() {
+        return homeTeamPoints;
+    }
+
+    public void setHomeTeamPoints(int homeTeamPoints) {
+        this.homeTeamPoints = homeTeamPoints;
+    }
+
+    public int getAwayTeamPoints() {
+        return awayTeamPoints;
+    }
+
+    public void setAwayTeamPoints(int awayTeamPoints) {
+        this.awayTeamPoints = awayTeamPoints;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public Round getRound() {
+        return round;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
+    
 }

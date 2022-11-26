@@ -39,4 +39,54 @@ public class Tournament {
         this.name = name;
         this.teams = new ArrayList<>(teams);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCurrentRoundNumber() {
+        return currentRoundNumber;
+    }
+
+    public void setCurrentRoundNumber(int currentRoundNumber) {
+        this.currentRoundNumber = currentRoundNumber;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public List<Round> getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
+    }
+
+    public List<MatchingAlgorithm> getMatchingAlgorithms() {
+        return matchingAlgorithms;
+    }
+
+    public void setMatchingAlgorithms(List<MatchingAlgorithm> matchingAlgorithms) {
+        this.matchingAlgorithms = matchingAlgorithms;
+    }
+
+    
 }
