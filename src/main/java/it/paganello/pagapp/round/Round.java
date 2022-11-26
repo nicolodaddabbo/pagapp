@@ -1,6 +1,6 @@
 package it.paganello.pagapp.round;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import it.paganello.pagapp.match.Match;
+import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
+import it.paganello.pagapp.team.Team;
 import it.paganello.pagapp.tournament.Tournament;
 
 @Entity
@@ -32,7 +34,13 @@ public class Round {
     private Tournament tournament;
     
     @OneToMany(mappedBy = "round")
-    private Set<Match> matches;
+    private List<Match> matches;
+
+    @Transient
+    private List<Team> standings;
+
+    @Transient
+    private MatchingAlgorithm matchingAlgorithm;
 
     public Long getId() {
         return id;
@@ -74,13 +82,28 @@ public class Round {
         this.tournament = tournament;
     }
 
-    public Set<Match> getMatches() {
+    public List<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(Set<Match> matches) {
+    public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
 
-    
+    public List<Team> getStandings() {
+        return standings;
+    }
+
+    public void setStandings(List<Team> standings) {
+        this.standings = standings;
+    }
+
+    public MatchingAlgorithm getMatchingAlgorithm() {
+        return matchingAlgorithm;
+    }
+
+    public void setMatchingAlgorithm(MatchingAlgorithm matchingAlgorithm) {
+        this.matchingAlgorithm = matchingAlgorithm;
+    }
+   
 }

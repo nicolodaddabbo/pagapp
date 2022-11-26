@@ -30,7 +30,7 @@ public class Tournament {
     @OneToMany(mappedBy = "tournament")
     private List<Round> rounds;
     @Transient
-    private List<MatchingAlgorithm> matchingAlgorithms;
+    private List<MatchingAlgorithm> defaultMatchingAlgorithms;
 
     public Tournament() {
     }
@@ -81,11 +81,11 @@ public class Tournament {
     }
 
     public List<MatchingAlgorithm> getMatchingAlgorithms() {
-        return matchingAlgorithms;
+        return defaultMatchingAlgorithms;
     }
 
     public void setMatchingAlgorithms(List<MatchingAlgorithm> matchingAlgorithms) {
-        this.matchingAlgorithms = matchingAlgorithms;
+        this.defaultMatchingAlgorithms = matchingAlgorithms;
     }
 
     

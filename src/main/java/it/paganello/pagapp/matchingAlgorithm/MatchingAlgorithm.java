@@ -7,4 +7,6 @@ import it.paganello.pagapp.round.Round;
 
 public interface MatchingAlgorithm {
     Round computeNextRound(List<Match> playedMatches);
+
+    boolean isRoundOver(Round round);
 }
