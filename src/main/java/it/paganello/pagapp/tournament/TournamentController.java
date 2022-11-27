@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class TournamentController {
     @Autowired
     TournamentService service;
-
+    
     @PostMapping
     public Tournament createTournament(@RequestBody Tournament tournament) {
         return service.createTournament(tournament); 
@@ -51,5 +51,9 @@ public class TournamentController {
         return service.isCurrentRoundFinished(id);
     }
     
+    @PostMapping("/{id}/firstRound")
+    public Optional<Round> firstRound(@PathVariable Long id, @RequestBody Round round) {
+        return service.firstRound(id, round);
+    }
 
 }

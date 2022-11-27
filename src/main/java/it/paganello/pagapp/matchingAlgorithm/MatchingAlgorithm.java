@@ -9,4 +9,6 @@ public interface MatchingAlgorithm {
     Round computeNextRound(List<Match> playedMatches);
 
     boolean isRoundOver(Round round);
+
+    Round computeFirstRound();
 }

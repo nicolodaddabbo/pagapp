@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import it.paganello.pagapp.match.Match;
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
 import it.paganello.pagapp.team.Team;
@@ -31,6 +33,7 @@ public class Round {
 
     @ManyToOne
     @JoinColumn(name = "TRN_ID")
+    @JsonBackReference
     private Tournament tournament;
     
     @OneToMany(mappedBy = "round")
@@ -102,7 +105,7 @@ public class Round {
         return matchingAlgorithm;
     }
 
-    public void setMatchingAlgorithm(MatchingAlgorithm matchingAlgorithm) {
+    public void setMatchingAlgorithm(MatchingAlgorithm matchingAlgorithm) { // forse devo passargli un id?
         this.matchingAlgorithm = matchingAlgorithm;
     }
    

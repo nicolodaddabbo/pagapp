@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.paganello.pagapp.round.Round;
+import it.paganello.pagapp.round.RoundService;
 
 @Service
 public class TournamentService {
     @Autowired
     TournamentRepository repository;
+    @Autowired
+    RoundService roundService;
 
     public Tournament createTournament(final Tournament tournament) {
         return repository.save(tournament);
@@ -52,5 +55,18 @@ public class TournamentService {
             throw new TournamentNotFoundException(id);
         }
         return tournament.getRounds().get(tournament.getCurrentRoundNumber()).isFinished();
+    }
+
+    public Optional<Round> firstRound(final Long id, final Round round) {
+        Tournament tournament = repository.findById(id).get();
+        if (tournament == null) {
+            throw new TournamentNotFoundException(id);
+        }
+        if (!tournament.getRounds().isEmpty()) {
+            return Optional.empty();
+        }
+        Round firstRound = roundService.firstRound(tournament, round);
+        tournament.getRounds().add(firstRound);
+        return Optional.of(firstRound);
     }
 }

@@ -31,6 +31,7 @@ public class Tournament {
     @JsonManagedReference
     private List<Team> teams;
     @OneToMany(mappedBy = "tournament")
+    @JsonManagedReference
     private List<Round> rounds;
     @Transient
     private List<MatchingAlgorithm> defaultMatchingAlgorithms;
