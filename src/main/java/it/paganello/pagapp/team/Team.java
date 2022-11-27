@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import it.paganello.pagapp.match.Match;
 import it.paganello.pagapp.tournament.Tournament;
 
@@ -38,11 +40,16 @@ public class Team {
 
     @ManyToOne
     @JoinColumn(name = "TRN_ID")
+    @JsonBackReference
     private Tournament tournament;
+
+    public Team(){
+    }
 
     public Team(final String name) {
         this.name = name;
     }
+
 
     public Long getId() {
         return id;

@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
 import it.paganello.pagapp.round.Round;
 import it.paganello.pagapp.team.Team;
@@ -26,13 +28,19 @@ public class Tournament {
     private int currentRoundNumber;
 
     @OneToMany(mappedBy = "tournament")
+    @JsonManagedReference
     private List<Team> teams;
     @OneToMany(mappedBy = "tournament")
     private List<Round> rounds;
     @Transient
     private List<MatchingAlgorithm> defaultMatchingAlgorithms;
 
-    public Tournament() {
+    public Tournament(){
+        
+    }
+
+    public Tournament(String name) {
+        this.name = name;
     }
 
     public Tournament(final String name, final List<Team> teams) {
