@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,7 +17,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import it.paganello.pagapp.match.Match;
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
+import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
 import it.paganello.pagapp.team.Team;
 import it.paganello.pagapp.tournament.Tournament;
 
@@ -42,8 +44,21 @@ public class Round {
     @Transient
     private List<Team> standings;
 
-    @Transient
-    private MatchingAlgorithm matchingAlgorithm;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "matchingAlgorithm")
+    private MatchingAlgorithmName matchingAlgorithmName;
+
+    public Round() {
+    }
+
+    public Round(final int fields, final MatchingAlgorithmName matchingAlgorithmName) {
+        this.fields = fields;
+        this.matchingAlgorithmName = matchingAlgorithmName;
+    }
+
+    public Round(final MatchingAlgorithmName matchingAlgorithmName) {
+        this.matchingAlgorithmName = matchingAlgorithmName;
+    }
 
     public Long getId() {
         return id;
@@ -101,12 +116,12 @@ public class Round {
         this.standings = standings;
     }
 
-    public MatchingAlgorithm getMatchingAlgorithm() {
-        return matchingAlgorithm;
+    public MatchingAlgorithmName getMatchingAlgorithmName() {
+        return matchingAlgorithmName;
     }
 
-    public void setMatchingAlgorithm(MatchingAlgorithm matchingAlgorithm) { // forse devo passargli un id?
-        this.matchingAlgorithm = matchingAlgorithm;
+    public void setMatchingAlgorithmName(MatchingAlgorithmName matchingAlgorithmName) { // forse devo passargli un id?
+        this.matchingAlgorithmName = matchingAlgorithmName;
     }
    
 }
