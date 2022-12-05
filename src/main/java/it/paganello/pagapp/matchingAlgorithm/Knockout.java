@@ -3,14 +3,18 @@ package it.paganello.pagapp.matchingAlgorithm;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.paganello.pagapp.match.Match;
+import it.paganello.pagapp.match.MatchService;
 import it.paganello.pagapp.round.Round;
 import it.paganello.pagapp.team.Team;
 
 @Component
 public class Knockout implements MatchingAlgorithm {
+    @Autowired
+    MatchService matchService;
 
     @Override
     public Round computeFirstRound(List<Team> teams) {
@@ -20,7 +24,11 @@ public class Knockout implements MatchingAlgorithm {
             Match newMatch = new Match();
             newMatch.setHomeTeam(teams.get(i));
             newMatch.setAwayTeam(teams.get(i + 1));
+            // newMatch.setRound(round); ???
+            // teams.get(i).getHomeMatches().add(newMatch);
+            // teams.get(i + 1).getAwayMatches().add(newMatch);
             matches.add(newMatch);
+            matchService.createMatch(newMatch);
         }
         round.setMatches(matches);
         return round;

@@ -14,6 +14,10 @@ public class RoundService {
     @Autowired
     MatchingAlgorithmFactory matchingAlgorithmFactory;
 
+    public Round addRound(final Round round) {
+        return repository.save(round);
+    }
+
     public void checkRoundFinish(final Round round) {
         Round currentRound = repository.findById(round.getId()).orElseThrow();
         MatchingAlgorithm matchingAlgorithm = matchingAlgorithmFactory.findMatchingAlgorithm(round.getMatchingAlgorithmName());
@@ -23,12 +27,11 @@ public class RoundService {
     }
 
     public Round firstRound(final Tournament tournament, final Round newRound) {
-        Round firstRound = new Round();
-        firstRound.setFields(newRound.getFields());
-        firstRound.setMatchingAlgorithmName(newRound.getMatchingAlgorithmName());
-        firstRound.setTournament(tournament);
-        firstRound.setRoundNumber(1);
-        firstRound.setMatches(matchingAlgorithmFactory.findMatchingAlgorithm(newRound.getMatchingAlgorithmName()).computeFirstRound(tournament.getTeams()).getMatches());
-        return firstRound;
+        newRound.setTournament(tournament);
+        newRound.setRoundNumber(1);
+        newRound.setMatches(matchingAlgorithmFactory.findMatchingAlgorithm(newRound.getMatchingAlgorithmName()).computeFirstRound(tournament.getTeams()).getMatches());
+        newRound.getMatches().forEach(m -> m.setRound(newRound));
+        repository.save(newRound);
+        return newRound;
     }
 }

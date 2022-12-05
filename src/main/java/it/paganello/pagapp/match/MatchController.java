@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -21,4 +22,8 @@ public class MatchController {
         return service.modifyMatch(id, entity);
     }
 
+    @GetMapping(value = "/{id}")
+    public Optional<Match> getMatch(@PathVariable Long id) {
+        return service.getMatchById(id);
+    }
 }

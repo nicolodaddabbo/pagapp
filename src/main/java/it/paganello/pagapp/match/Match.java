@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import it.paganello.pagapp.round.Round;
 import it.paganello.pagapp.team.Team;
 
@@ -27,14 +29,17 @@ public class Match {
 
     @ManyToOne
     @JoinColumn(name = "HOME_TEA_ID")
+    @JsonBackReference(value = "match-homeTeam")
     private Team homeTeam;
 
     @ManyToOne
     @JoinColumn(name = "AWAY_TEA_ID")
+    @JsonBackReference(value = "match-awayTeam")
     private Team awayTeam;
 
     @ManyToOne
     @JoinColumn(name = "ROU_ID")
+    @JsonBackReference(value = "round-matches")
     private Round round;
 
     public Long getId() {

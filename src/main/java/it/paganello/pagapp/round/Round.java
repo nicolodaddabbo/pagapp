@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import it.paganello.pagapp.match.Match;
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
@@ -35,10 +36,11 @@ public class Round {
 
     @ManyToOne
     @JoinColumn(name = "TRN_ID")
-    @JsonBackReference
+    @JsonBackReference(value = "tournament-rounds")
     private Tournament tournament;
     
     @OneToMany(mappedBy = "round")
+    @JsonManagedReference(value = "round-matches")
     private List<Match> matches;
 
     @Transient

@@ -28,10 +28,10 @@ public class Tournament {
     private int currentRoundNumber;
 
     @OneToMany(mappedBy = "tournament")
-    @JsonManagedReference
+    @JsonManagedReference(value = "tournament-teams")
     private List<Team> teams;
     @OneToMany(mappedBy = "tournament")
-    @JsonManagedReference
+    @JsonManagedReference(value = "tournament-rounds")
     private List<Round> rounds;
     @Transient
     private List<MatchingAlgorithm> defaultMatchingAlgorithms;

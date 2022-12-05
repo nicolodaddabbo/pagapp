@@ -1,0 +1,66 @@
+{
+    "id": null,
+    "roundNumber": 1,
+    "finished": false,
+    "fields": 0,
+    "matches": [
+        {
+            "id": null,
+            "field": null,
+            "finished": false,
+            "homeTeamPoints": 0,
+            "awayTeamPoints": 0,
+            "homeTeam": {
+                "id": 2,
+                "name": "team1",
+                "wins": 0,
+                "losses": 0,
+                "points": 0.0,
+                "goalDifference": 0,
+                "homeMatches": [],
+                "awayMatches": []
+            },
+            "awayTeam": {
+                "id": 3,
+                "name": "team2",
+                "wins": 0,
+                "losses": 0,
+                "points": 0.0,
+                "goalDifference": 0,
+                "homeMatches": [],
+                "awayMatches": []
+            },
+            "round": null
+        },
+        {
+            "id": null,
+            "field": null,
+            "finished": false,
+            "homeTeamPoints": 0,
+            "awayTeamPoints": 0,
+            "homeTeam": {
+                "id": 4,
+                "name": "team3",
+                "wins": 0,
+                "losses": 0,
+                "points": 0.0,
+                "goalDifference": 0,
+                "homeMatches": [],
+                "awayMatches": []
+            },
+            "awayTeam": {
+                "id": 5,
+                "name": "team4",
+                "wins": 0,
+                "losses": 0,
+                "points": 0.0,
+                "goalDifference": 0,
+                "homeMatches": [],
+                "awayMatches": []
+            },
+            "round": null
+        }
+    ],
+    "standings": null,
+    "matchingAlgorithmName": "Knockout"
+}

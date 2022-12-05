@@ -1,6 +1,7 @@
 package it.paganello.pagapp.team;
 
-import java.util.Set;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import it.paganello.pagapp.match.Match;
 import it.paganello.pagapp.tournament.Tournament;
@@ -33,14 +35,16 @@ public class Team {
     private int goalDifference;
 
     @OneToMany(mappedBy = "homeTeam")
-    private Set<Match> homeMatches;
+    @JsonManagedReference(value = "match-homeTeam")
+    private List<Match> homeMatches;
 
     @OneToMany(mappedBy = "awayTeam")
-    private Set<Match> awayMatches;
+    @JsonManagedReference(value = "match-awayTeam")
+    private List<Match> awayMatches;
 
     @ManyToOne
     @JoinColumn(name = "TRN_ID")
-    @JsonBackReference
+    @JsonBackReference(value = "tournament-teams")
     private Tournament tournament;
 
     public Team(){
@@ -99,19 +103,19 @@ public class Team {
         this.goalDifference = goalDifference;
     }
 
-    public Set<Match> getHomeMatches() {
+    public List<Match> getHomeMatches() {
         return homeMatches;
     }
 
-    public void setHomeMatches(Set<Match> homeMatches) {
+    public void setHomeMatches(List<Match> homeMatches) {
         this.homeMatches = homeMatches;
     }
 
-    public Set<Match> getAwayMatches() {
+    public List<Match> getAwayMatches() {
         return awayMatches;
     }
 
-    public void setAwayMatches(Set<Match> awayMatches) {
+    public void setAwayMatches(List<Match> awayMatches) {
         this.awayMatches = awayMatches;
     }
 
