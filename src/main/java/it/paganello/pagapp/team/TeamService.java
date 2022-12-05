@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.paganello.pagapp.tournament.TournamentNotFoundException;
 import it.paganello.pagapp.tournament.TournamentRepository;
 
 @Service
@@ -31,7 +30,7 @@ public class TeamService {
                 return teamRepository.save(team);
             }).orElseThrow();
             return addTeam(tournamentId, newTeam);
-        }).orElseThrow(() -> new TournamentNotFoundException(tournamentId));
+        }).orElseThrow();
         return Optional.empty();
     }
 }

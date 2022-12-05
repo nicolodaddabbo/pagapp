@@ -16,13 +16,20 @@ public class TournamentService {
     @Autowired
     RoundService roundService;
 
-    public Tournament createTournament(final Tournament tournament) {
-        return repository.save(tournament);
+    private boolean isNameTaken(final String name) {
+        return repository.findByName(name).isPresent();
     }
 
-    public Tournament getTournamentById(final Long id) {
-        return repository.findById(id)
-            .orElseThrow(() -> new TournamentNotFoundException(id));
+    public Optional<String> createTournament(final String name) {
+        if (isNameTaken(name)) {
+            return Optional.of("Name already taken");
+        }
+        repository.save(new Tournament(name));
+        return Optional.empty();
+    }
+
+    public Optional<Tournament> getTournamentById(final Long id) {
+        return repository.findById(id);
     }
 
     public List<Tournament> getTournaments() {
@@ -30,43 +37,42 @@ public class TournamentService {
     }
 
     public Optional<Round> getRoundByRoundNumber(final Long id, final int roundNumber) {
-        try {
-            Tournament tournament = getTournamentById(id);
-            return tournament.getRounds().stream()
-                    .filter(r -> r.getRoundNumber() == roundNumber)
-                    .findAny();
-        } catch (TournamentNotFoundException e) {
-            throw new TournamentNotFoundException(id);
+        Optional<Tournament> tournmanent = getTournamentById(id);
+        if (tournmanent.isEmpty()) {
+            return Optional.empty();
         }
+        return tournmanent.get().getRounds().stream()
+                .filter(r -> r.getRoundNumber() == roundNumber)
+                .findAny();
     }
 
     public Optional<Round> getCurrentRoundByTournamentId(final Long id) {
-        try {
-            Tournament tournament = getTournamentById(id);
-            return getRoundByRoundNumber(id, tournament.getCurrentRoundNumber());
-        } catch (TournamentNotFoundException e) {
-            throw new TournamentNotFoundException(id);
+        Optional<Tournament> tournmanent = getTournamentById(id);
+        if (tournmanent.isEmpty()) {
+            return Optional.empty();
         }
+        return getRoundByRoundNumber(id, tournmanent.get().getCurrentRoundNumber());
     }
 
-    public boolean isCurrentRoundFinished(final Long id) {
-        Tournament tournament = repository.findById(id).get();
-        if (tournament == null) {
-            throw new TournamentNotFoundException(id);
+    public Optional<String> isCurrentRoundFinished(final Long id) {
+        Optional<Tournament> tournament = getTournamentById(id);
+        if (tournament.isEmpty()) {
+            return Optional.empty();
         }
-        return tournament.getRounds().get(tournament.getCurrentRoundNumber()).isFinished();
+        return Optional.of(
+                tournament.get()
+                .getRounds()
+                .get(tournament.get().getCurrentRoundNumber())
+                .isFinished() ? "Finished" : "NOT Finished");
     }
 
     public Optional<Round> firstRound(final Long id, final Round round) {
-        Tournament tournament = repository.findById(id).get();
-        if (tournament == null) {
-            throw new TournamentNotFoundException(id);
-        }
-        if (!tournament.getRounds().isEmpty()) {
+        Optional<Tournament> tournament = getTournamentById(id);
+        if (tournament.isEmpty() || !tournament.get().getRounds().isEmpty()) {
             return Optional.empty();
         }
-        Round firstRound = roundService.firstRound(tournament, round);
-        tournament.getRounds().add(firstRound);
+        Round firstRound = roundService.firstRound(tournament.get(), round);
+        tournament.get().getRounds().add(firstRound);
         return Optional.of(firstRound);
     }
 }
