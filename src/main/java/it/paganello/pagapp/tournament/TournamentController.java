@@ -2,7 +2,9 @@ package it.paganello.pagapp.tournament;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.paganello.pagapp.match.MatchDto;
 import it.paganello.pagapp.round.Round;
+import it.paganello.pagapp.round.RoundDto;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(value = "/tournaments")
 public class TournamentController {
     @Autowired
-    TournamentService service;
+    private TournamentService service;
+
+    @Autowired
+    private ModelMapper modelMapper;
     
     @PostMapping
     public ResponseEntity<String> createTournament(@RequestBody final String name) {
@@ -56,12 +63,29 @@ public class TournamentController {
     }
 
     @GetMapping("/{id}/rounds/{roundNumber}")
-    public ResponseEntity<Optional<Round>> getRoundByRoundNumber(@PathVariable final Long id, @PathVariable final int roundNumber) {
+    public ResponseEntity<Optional<RoundDto>> getRoundByRoundNumber(@PathVariable final Long id, @PathVariable final int roundNumber) {
         Optional<Round> round = service.getRoundByRoundNumber(id, roundNumber);
         if (round.isEmpty()) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(round, HttpStatus.OK);
+        RoundDto roundDto = convertToDto(round.get());
+        return new ResponseEntity<>(Optional.of(roundDto), HttpStatus.OK);
+    }
+
+    private RoundDto convertToDto(Round round) {
+        RoundDto roundDto = modelMapper.map(round, RoundDto.class);
+        roundDto.setTournament(round.getTournament().getName());
+        List<MatchDto> matchesDto = round.getMatches().stream()
+                .map(m -> {
+                    MatchDto mDto = modelMapper.map(m, MatchDto.class);
+                    mDto.setHomeTeamName(m.getHomeTeam().getName());
+                    mDto.setAwayTeamName(m.getAwayTeam().getName());
+                    mDto.setHomeTeamPoints(m.getHomeTeamPoints());
+                    mDto.setAwayTeamPoints(m.getAwayTeamPoints());
+                    return mDto;
+                }).collect(Collectors.toList());
+        roundDto.setMatches(matchesDto);
+        return roundDto;
     }
 
     @GetMapping("/{id}/isCurrentRoundFinished")

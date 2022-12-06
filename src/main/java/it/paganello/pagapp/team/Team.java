@@ -30,7 +30,7 @@ public class Team {
     @Column(name = "LOSSES")
     private int losses;
     @Column(name = "POINTS")
-    private double points;
+    private double swissPoints;
     @Column(name = "GOAL_DIFFERENCE")
     private int goalDifference;
     @Column(name = "SEED")
@@ -93,12 +93,12 @@ public class Team {
         this.losses = losses;
     }
 
-    public double getPoints() {
-        return points;
+    public double getSwissPoints() {
+        return swissPoints;
     }
 
-    public void setPoints(double points) {
-        this.points = points;
+    public void setSwissPoints(double points) {
+        this.swissPoints = points;
     }
 
     public int getGoalDifference() {
