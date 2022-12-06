@@ -33,6 +33,8 @@ public class Team {
     private double points;
     @Column(name = "GOAL_DIFFERENCE")
     private int goalDifference;
+    @Column(name = "SEED")
+    private int seed;
 
     @OneToMany(mappedBy = "homeTeam")
     @JsonManagedReference(value = "match-homeTeam")
@@ -54,6 +56,10 @@ public class Team {
         this.name = name;
     }
 
+    public Team(final String name, final int seed) {
+        this.name = name;
+        this.seed = seed;
+    }
 
     public Long getId() {
         return id;
@@ -127,5 +133,12 @@ public class Team {
         this.tournament = tournament;
     }
 
-    
+    public int getSeed() {
+        return seed;
+    }
+
+    public void setSeed(int seed) {
+        this.seed = seed;
+    }
+
 }

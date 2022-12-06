@@ -14,39 +14,23 @@ pagaOpen
 
 ###
 
-POST http://localhost:8080/1/team HTTP/1.1
+POST http://localhost:8080/1/team?name=team1&seed=10 HTTP/1.1
 Content-Type: application/json
-
-{
-    "name": "team1"
-}
 
 ###
 
-POST http://localhost:8080/1/team HTTP/1.1
+POST http://localhost:8080/1/team?name=team2&seed=10 HTTP/1.1
 Content-Type: application/json
-
-{
-    "name": "team2"
-}
 
 ###
 
-POST http://localhost:8080/1/team HTTP/1.1
+POST http://localhost:8080/1/team?name=team3&seed=10 HTTP/1.1
 Content-Type: application/json
-
-{
-    "name": "team3"
-}
 
 ###
 
-POST http://localhost:8080/1/team HTTP/1.1
+POST http://localhost:8080/1/team?name=team4&seed=10 HTTP/1.1
 Content-Type: application/json
-
-{
-    "name": "team4"
-}
 
 ###
 
@@ -64,3 +48,11 @@ GET http://localhost:8080/tournaments/1/rounds/1 HTTP/1.1
 ###
 
 GET http://localhost:8080/match/4
+
+###
+
+GET http://localhost:8080/1/team?name=team1
+
+###
+
+PUT http://localhost:8080/1/team/2?newName=teamUNO&newSeed=1
