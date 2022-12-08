@@ -2,12 +2,11 @@ package it.paganello.pagapp.matchingAlgorithm;
 
 import java.util.List;
 
-import it.paganello.pagapp.match.Match;
 import it.paganello.pagapp.round.Round;
 import it.paganello.pagapp.team.Team;
 
 public interface MatchingAlgorithm {
-    Round computeNextRound(List<Match> playedMatches);
+    List<Round> compute(List<Team> teams);
 
     boolean isRoundOver(Round round);
 

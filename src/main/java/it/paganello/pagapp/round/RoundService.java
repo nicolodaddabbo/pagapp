@@ -22,7 +22,7 @@ public class RoundService {
         Round currentRound = repository.findById(round.getId()).orElseThrow();
         MatchingAlgorithm matchingAlgorithm = matchingAlgorithmFactory.findMatchingAlgorithm(round.getMatchingAlgorithmName());
         if (matchingAlgorithm.isRoundOver(currentRound)) {
-            repository.save(matchingAlgorithm.computeNextRound(currentRound.getMatches()));
+            repository.saveAll(matchingAlgorithm.compute(currentRound.getTournament().getTeams()));
         }
     }
 

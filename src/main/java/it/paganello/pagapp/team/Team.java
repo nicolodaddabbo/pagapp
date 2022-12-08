@@ -35,6 +35,8 @@ public class Team {
     private int goalDifference;
     @Column(name = "SEED")
     private int seed;
+    @Column(name = "POOL")
+    private char pool;
 
     @OneToMany(mappedBy = "homeTeam")
     @JsonManagedReference(value = "match-homeTeam")
@@ -139,6 +141,14 @@ public class Team {
 
     public void setSeed(int seed) {
         this.seed = seed;
+    }
+
+    public char getPool() {
+        return pool;
+    }
+
+    public void setPool(char pool) {
+        this.pool = pool;
     }
 
 }
