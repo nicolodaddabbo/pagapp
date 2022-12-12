@@ -72,6 +72,17 @@ public class TournamentController {
         return new ResponseEntity<>(Optional.of(roundDto), HttpStatus.OK);
     }
 
+    @GetMapping("/{tournamentId}/rounds")
+    public ResponseEntity<Optional<List<RoundDto>>> getRounds(@PathVariable final Long tournamentId) {
+        Optional<List<Round>> rounds = service.getRounds(tournamentId);
+        if (rounds.isEmpty()) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
+        }
+        List<RoundDto> roundsDto = rounds.get().stream().map(r -> convertToDto(r)).toList();
+
+        return new ResponseEntity<>(Optional.of(roundsDto), HttpStatus.OK);
+    }
+
     private RoundDto convertToDto(Round round) {
         RoundDto roundDto = modelMapper.map(round, RoundDto.class);
         roundDto.setTournament(round.getTournament().getName());

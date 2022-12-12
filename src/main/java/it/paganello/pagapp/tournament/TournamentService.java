@@ -46,6 +46,14 @@ public class TournamentService {
                 .findAny();
     }
 
+    public Optional<List<Round>> getRounds(final Long tournamentId) {
+        Optional<Tournament> tournmanent = getTournamentById(tournamentId);
+        if (tournmanent.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(tournmanent.get().getRounds());
+    }
+
     public Optional<Round> getCurrentRoundByTournamentId(final Long id) {
         Optional<Tournament> tournmanent = getTournamentById(id);
         if (tournmanent.isEmpty()) {

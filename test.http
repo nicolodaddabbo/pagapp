@@ -47,6 +47,10 @@ GET http://localhost:8080/tournaments/1/rounds/1 HTTP/1.1
 
 ###
 
+GET http://localhost:8080/tournaments/1/rounds HTTP/1.1
+
+###
+
 GET http://localhost:8080/match/4
 
 ###
