@@ -43,6 +43,13 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/tournaments/1/computeRound HTTP/1.1
+Content-Type: application/json
+
+KNOCKOUT
+
+###
+
 GET http://localhost:8080/tournaments/1/rounds/1 HTTP/1.1
 
 ###

@@ -54,6 +54,14 @@ public class TournamentService {
         return Optional.of(tournmanent.get().getRounds());
     }
 
+    public Optional<String> computeRound(final Long tournamentId, final String matchingAlgorithm) {
+        Optional<Tournament> tournament = getTournamentById(tournamentId);
+        if (tournament.isEmpty()) {
+            return Optional.of("Tournament not found");
+        }
+        return roundService.computeRound(tournament.get(), matchingAlgorithm).isEmpty() ? Optional.of("Round NOT created") : Optional.of("Round created");
+    }
+
     public Optional<Round> getCurrentRoundByTournamentId(final Long id) {
         Optional<Tournament> tournmanent = getTournamentById(id);
         if (tournmanent.isEmpty()) {

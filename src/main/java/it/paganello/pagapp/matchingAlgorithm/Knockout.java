@@ -86,8 +86,12 @@ public class Knockout implements MatchingAlgorithm {
 
     @Override
     public boolean isRoundOver(Round round) {
-        // TODO Auto-generated method stub
-        return false;
+        for (Match m : round.getMatches()) {
+            if (!m.isFinished()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
