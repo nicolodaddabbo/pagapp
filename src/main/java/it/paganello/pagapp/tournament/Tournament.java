@@ -42,6 +42,7 @@ public class Tournament {
 
     public Tournament(String name) {
         this.name = name;
+        this.currentRoundNumber = 1;
     }
 
     public Tournament(final String name, final List<Team> teams) {

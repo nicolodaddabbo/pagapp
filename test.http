@@ -58,7 +58,11 @@ GET http://localhost:8080/tournaments/1/rounds HTTP/1.1
 
 ###
 
-GET http://localhost:8080/match/4
+GET http://localhost:8080/tournaments/1/currentRound HTTP/1.1
+
+###
+
+GET http://localhost:8080/match/6
 
 ###
 
@@ -70,4 +74,4 @@ PUT http://localhost:8080/1/team/2?newName=teamUNO&newSeed=1
 
 ###
 
-PUT http://localhost:8080/match/6?homeTeamPoints=15&awayTeamPoints=10
+PUT http://localhost:8080/match/11?homeTeamPoints=15&awayTeamPoints=10

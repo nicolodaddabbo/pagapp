@@ -25,17 +25,32 @@ public class RoundService {
     public List<Round> computeRound(final Tournament tournament, final String matchingAlgorithmString) {
         List<Round> rounds = new LinkedList<>();
         MatchingAlgorithm matchingAlgorithm = matchingAlgorithmFactory.findMatchingAlgorithm(MatchingAlgorithmName.valueOf(matchingAlgorithmString));
-        // if (!matchingAlgorithm.isRoundOver(tournament.getRounds().get(tournament.getCurrentRoundNumber()))) {
-        //     return rounds;
-        // }
+        if (!tournament.getRounds().isEmpty() && !isRoundOver(tournament, tournament.getRounds())) {
+            return rounds;
+        }
 
         rounds = matchingAlgorithm.compute(tournament.getTeams());
         rounds.forEach(r -> {
             r.setTournament(tournament);
+            r.setMatchingAlgorithmName(matchingAlgorithm.getMatchingAlgorithmName());
             r.getMatches().forEach(m -> m.setRound(r));
         });
+        tournament.setCurrentRoundNumber(rounds.get(0).getRoundNumber());
         repository.saveAll(rounds);
         return rounds;
+    }
+
+    public boolean isRoundOver(final Tournament tournament, final List<Round> rounds) {
+        for (Round round : rounds) {
+            MatchingAlgorithm matchingAlgorithm = matchingAlgorithmFactory.findMatchingAlgorithm(round.getMatchingAlgorithmName());
+            if (matchingAlgorithm.isRoundOver(round)) {
+                round.setFinished(true);
+                tournament.setCurrentRoundNumber(tournament.getCurrentRoundNumber() + 1);
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void checkRoundFinish(final Round round) {

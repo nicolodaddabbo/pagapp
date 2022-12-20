@@ -37,21 +37,23 @@ public class TournamentService {
     }
 
     public Optional<Round> getRoundByRoundNumber(final Long id, final int roundNumber) {
-        Optional<Tournament> tournmanent = getTournamentById(id);
-        if (tournmanent.isEmpty()) {
+        Optional<Tournament> tournament = getTournamentById(id);
+        if (tournament.isEmpty()) {
             return Optional.empty();
         }
-        return tournmanent.get().getRounds().stream()
+        roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
+        return tournament.get().getRounds().stream()
                 .filter(r -> r.getRoundNumber() == roundNumber)
                 .findAny();
     }
 
     public Optional<List<Round>> getRounds(final Long tournamentId) {
-        Optional<Tournament> tournmanent = getTournamentById(tournamentId);
-        if (tournmanent.isEmpty()) {
+        Optional<Tournament> tournament = getTournamentById(tournamentId);
+        if (tournament.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(tournmanent.get().getRounds());
+        roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
+        return Optional.of(tournament.get().getRounds());
     }
 
     public Optional<String> computeRound(final Long tournamentId, final String matchingAlgorithm) {
@@ -63,11 +65,11 @@ public class TournamentService {
     }
 
     public Optional<Round> getCurrentRoundByTournamentId(final Long id) {
-        Optional<Tournament> tournmanent = getTournamentById(id);
-        if (tournmanent.isEmpty()) {
+        Optional<Tournament> tournament = getTournamentById(id);
+        if (tournament.isEmpty()) {
             return Optional.empty();
         }
-        return getRoundByRoundNumber(id, tournmanent.get().getCurrentRoundNumber());
+        return getRoundByRoundNumber(id, tournament.get().getCurrentRoundNumber());
     }
 
     public Optional<String> isCurrentRoundFinished(final Long id) {
@@ -75,6 +77,7 @@ public class TournamentService {
         if (tournament.isEmpty()) {
             return Optional.empty();
         }
+        roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
         return Optional.of(
                 tournament.get()
                 .getRounds()
@@ -82,13 +85,13 @@ public class TournamentService {
                 .isFinished() ? "Finished" : "NOT Finished");
     }
 
-    public Optional<Round> firstRound(final Long id, final Round round) {
-        Optional<Tournament> tournament = getTournamentById(id);
-        if (tournament.isEmpty() || !tournament.get().getRounds().isEmpty()) {
-            return Optional.empty();
-        }
-        Round firstRound = roundService.firstRound(tournament.get(), round);
-        tournament.get().getRounds().add(firstRound);
-        return Optional.of(firstRound);
-    }
+    // public Optional<Round> firstRound(final Long id, final Round round) {
+    //     Optional<Tournament> tournament = getTournamentById(id);
+    //     if (tournament.isEmpty() || !tournament.get().getRounds().isEmpty()) {
+    //         return Optional.empty();
+    //     }
+    //     Round firstRound = roundService.firstRound(tournament.get(), round);
+    //     tournament.get().getRounds().add(firstRound);
+    //     return Optional.of(firstRound);
+    // }
 }

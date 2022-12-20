@@ -113,9 +113,9 @@ public class TournamentController {
         return service.computeRound(id, matchingAlgorithm);
     }
     
-    @PostMapping("/{id}/firstRound")
-    public Optional<Round> firstRound(@PathVariable Long id, @RequestBody Round round) {
-        return service.firstRound(id, round);
-    }
+    // @PostMapping("/{id}/firstRound")
+    // public Optional<Round> firstRound(@PathVariable Long id, @RequestBody Round round) {
+    //     return service.firstRound(id, round);
+    // }
 
 }
