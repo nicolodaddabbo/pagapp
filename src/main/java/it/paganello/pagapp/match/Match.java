@@ -26,6 +26,8 @@ public class Match {
     private int homeTeamPoints;
     @Column(name = "AWAY_TEAM_POINTS")
     private int awayTeamPoints;
+    @Column(name = "UPDATED")
+    private boolean updated;
 
     @ManyToOne
     @JoinColumn(name = "HOME_TEA_ID")
@@ -106,5 +108,12 @@ public class Match {
         this.round = round;
     }
 
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
+    }
     
 }

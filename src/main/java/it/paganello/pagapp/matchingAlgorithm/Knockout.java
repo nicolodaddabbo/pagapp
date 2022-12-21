@@ -1,6 +1,7 @@
 package it.paganello.pagapp.matchingAlgorithm;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,22 +18,25 @@ import it.paganello.pagapp.team.Team;
 
 @Component
 public class Knockout implements MatchingAlgorithm {
+    private static final int WIN_POINTS = 3;
+    private static final int LOST_POINTS = 0;
+
     @Autowired
     private MatchService matchService;
 
     @Override
     public List<Round> compute(List<Team> teams) {
-        // if (teams.get(0).getHomeMatches() == 0) {
-        //     // computeRoundRobin
-        // } else {
-                // teams.sort((arg0, arg1) -> Double.compare(arg0.getSwissPoints(), arg1.getSwissPoints())); // TODO
-        //     // knockout
-        // }
-        Map<Character, List<Team>> pools = teams.stream().collect(Collectors.groupingBy(Team::getPool));
         List<Round> rounds = new LinkedList<>();
-        for (var pool : pools.entrySet()) {
-            rounds.addAll(computeRoundRobin(pool));
+
+        if (teams.get(0).getHomeMatches().size() == 0) { // round robin
+            Map<Character, List<Team>> pools = teams.stream().collect(Collectors.groupingBy(Team::getPool));
+            for (var pool : pools.entrySet()) {
+                rounds.addAll(computeRoundRobin(pool));
+            }
+        } else { // knockout
+            teams.sort(this.new StandingOrder());
         }
+
         return rounds;
     }
 
@@ -45,7 +49,7 @@ public class Knockout implements MatchingAlgorithm {
 
         int nRounds = teams.size() - 1;
         int halfSize = teams.size() / 2;
-        for (int i = 1; i <= nRounds ; i++) {
+        for (int i = 1; i <= nRounds; i++) {
             Round r = new Round();
             r.setRoundNumber(i);
             List<Match> matches = new LinkedList<>();
@@ -53,6 +57,7 @@ public class Knockout implements MatchingAlgorithm {
                 Match m = new Match();
                 m.setHomeTeam(teams.get(d));
                 m.setAwayTeam(teams.get(teams.size() - d - 1));
+                m.setUpdated(false);
                 matchService.createMatch(m);
                 matches.add(m);
             }
@@ -74,13 +79,56 @@ public class Knockout implements MatchingAlgorithm {
             if (!m.isFinished()) {
                 return false;
             }
+            if (!m.isUpdated()) {
+                Team homeTeam = m.getHomeTeam();
+                Team awayTeam = m.getAwayTeam();
+    
+                homeTeam.setGoalDifference(
+                        homeTeam.getGoalDifference()
+                                + m.getHomeTeamPoints()
+                                - m.getAwayTeamPoints());
+    
+                awayTeam.setGoalDifference(
+                        awayTeam.getGoalDifference()
+                                + m.getAwayTeamPoints()
+                                - m.getHomeTeamPoints());
+    
+                if (m.getHomeTeamPoints() > m.getAwayTeamPoints()) { // home team wins
+                    giveWinnerAndLoserPoints(homeTeam, awayTeam);
+                } else { // away team wins
+                    giveWinnerAndLoserPoints(awayTeam, homeTeam);
+                }
+
+                m.setUpdated(true);
+            }
         }
         return true;
+    }
+
+    private void giveWinnerAndLoserPoints(Team winner, Team loser) {
+        winner.setWins(winner.getWins() + 1);
+        loser.setLosses(loser.getLosses() + 1);
+        winner.setSwissPoints(winner.getSwissPoints() + WIN_POINTS);
+        loser.setSwissPoints(loser.getSwissPoints() + LOST_POINTS);
     }
 
     @Override
     public MatchingAlgorithmName getMatchingAlgorithmName() {
         return MatchingAlgorithmName.KNOCKOUT;
     }
-    
+
+    /***
+     * Sort for swiss point and goal difference
+     */
+    private class StandingOrder implements Comparator<Team> {
+        @Override
+        public int compare(Team team1, Team team2) {
+            int swissPointComparation = Double.compare(team1.getSwissPoints(), team1.getSwissPoints());
+            if (swissPointComparation != 0) {
+                return swissPointComparation;
+            }
+            return Integer.compare(team1.getGoalDifference(), team2.getGoalDifference());
+        }
+    }
+
 }
