@@ -61,12 +61,4 @@ public class RoundService {
         }
     }
 
-    public Round firstRound(final Tournament tournament, final Round newRound) {
-        newRound.setTournament(tournament);
-        newRound.setRoundNumber(1);
-        newRound.setMatches(matchingAlgorithmFactory.findMatchingAlgorithm(newRound.getMatchingAlgorithmName()).computeFirstRound(tournament.getTeams()).getMatches());
-        newRound.getMatches().forEach(m -> m.setRound(newRound));
-        repository.save(newRound);
-        return newRound;
-    }
 }

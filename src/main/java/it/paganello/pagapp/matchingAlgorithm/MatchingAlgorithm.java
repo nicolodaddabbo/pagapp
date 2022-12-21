@@ -10,7 +10,5 @@ public interface MatchingAlgorithm {
 
     boolean isRoundOver(Round round);
 
-    Round computeFirstRound(List<Team> teams);
-
     MatchingAlgorithmName getMatchingAlgorithmName();
 }

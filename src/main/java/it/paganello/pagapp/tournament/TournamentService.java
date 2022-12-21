@@ -85,13 +85,4 @@ public class TournamentService {
                 .isFinished() ? "Finished" : "NOT Finished");
     }
 
-    // public Optional<Round> firstRound(final Long id, final Round round) {
-    //     Optional<Tournament> tournament = getTournamentById(id);
-    //     if (tournament.isEmpty() || !tournament.get().getRounds().isEmpty()) {
-    //         return Optional.empty();
-    //     }
-    //     Round firstRound = roundService.firstRound(tournament.get(), round);
-    //     tournament.get().getRounds().add(firstRound);
-    //     return Optional.of(firstRound);
-    // }
 }

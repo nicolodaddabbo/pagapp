@@ -21,22 +21,6 @@ public class Knockout implements MatchingAlgorithm {
     private MatchService matchService;
 
     @Override
-    public Round computeFirstRound(List<Team> teams) {
-        // Round round = new Round();
-        // List<Match> matches = new LinkedList<>();
-        // for (int i = 0; i < teams.size(); i += 2) {
-        //     Match newMatch = new Match();
-        //     newMatch.setHomeTeam(teams.get(i));
-        //     newMatch.setAwayTeam(teams.get(i + 1));
-        //     matches.add(newMatch);
-        //     matchService.createMatch(newMatch);
-        // }
-        // round.setMatches(matches);
-        // return round;
-        return compute(teams).get(1);
-    }
-
-    @Override
     public List<Round> compute(List<Team> teams) {
         // if (teams.get(0).getHomeMatches() == 0) {
         //     // computeRoundRobin
