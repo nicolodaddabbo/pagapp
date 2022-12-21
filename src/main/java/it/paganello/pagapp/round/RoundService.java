@@ -44,8 +44,10 @@ public class RoundService {
         for (Round round : rounds) {
             MatchingAlgorithm matchingAlgorithm = matchingAlgorithmFactory.findMatchingAlgorithm(round.getMatchingAlgorithmName());
             if (matchingAlgorithm.isRoundOver(round)) {
-                round.setFinished(true);
-                tournament.setCurrentRoundNumber(tournament.getCurrentRoundNumber() + 1);
+                if (!round.isFinished()) {
+                    round.setFinished(true);
+                    tournament.setCurrentRoundNumber(tournament.getCurrentRoundNumber() + 1);
+                }
             } else {
                 return false;
             }

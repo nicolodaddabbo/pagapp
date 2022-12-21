@@ -42,6 +42,7 @@ public class TournamentService {
             return Optional.empty();
         }
         roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
+        repository.save(tournament.get());
         return tournament.get().getRounds().stream()
                 .filter(r -> r.getRoundNumber() == roundNumber)
                 .findAny();
@@ -53,6 +54,7 @@ public class TournamentService {
             return Optional.empty();
         }
         roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
+        repository.save(tournament.get());
         return Optional.of(tournament.get().getRounds());
     }
 
@@ -78,6 +80,7 @@ public class TournamentService {
             return Optional.empty();
         }
         roundService.isRoundOver(tournament.get(), tournament.get().getRounds());
+        repository.save(tournament.get());
         return Optional.of(
                 tournament.get()
                 .getRounds()
