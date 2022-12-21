@@ -20,6 +20,7 @@ import it.paganello.pagapp.team.Team;
 public class Knockout implements MatchingAlgorithm {
     private static final int WIN_POINTS = 3;
     private static final int LOST_POINTS = 0;
+    int braketsValue = 8;
 
     @Autowired
     private MatchService matchService;
@@ -27,14 +28,21 @@ public class Knockout implements MatchingAlgorithm {
     @Override
     public List<Round> compute(List<Team> teams) {
         List<Round> rounds = new LinkedList<>();
+        Map<Character, List<Team>> pools = teams.stream().collect(Collectors.groupingBy(Team::getPool));
 
         if (teams.get(0).getHomeMatches().size() == 0) { // round robin
-            Map<Character, List<Team>> pools = teams.stream().collect(Collectors.groupingBy(Team::getPool));
             for (var pool : pools.entrySet()) {
                 rounds.addAll(computeRoundRobin(pool));
             }
         } else { // knockout
-            teams.sort(this.new StandingOrder());
+            for (var pool : pools.values()) { // divido in upper pool (A) e lower pool (B)
+                pool.sort(this.new StandingOrder());
+                int upperPoolSize = pool.size() / 2; // not considering odd pools!!!
+                for (int i = 0; i < upperPoolSize; i++) {
+                    pool.get(i).setPool('A');
+                    pool.get(i + upperPoolSize).setPool('B');
+                }
+            }
         }
 
         return rounds;
@@ -82,17 +90,17 @@ public class Knockout implements MatchingAlgorithm {
             if (!m.isUpdated()) {
                 Team homeTeam = m.getHomeTeam();
                 Team awayTeam = m.getAwayTeam();
-    
+
                 homeTeam.setGoalDifference(
                         homeTeam.getGoalDifference()
                                 + m.getHomeTeamPoints()
                                 - m.getAwayTeamPoints());
-    
+
                 awayTeam.setGoalDifference(
                         awayTeam.getGoalDifference()
                                 + m.getAwayTeamPoints()
                                 - m.getHomeTeamPoints());
-    
+
                 if (m.getHomeTeamPoints() > m.getAwayTeamPoints()) { // home team wins
                     giveWinnerAndLoserPoints(homeTeam, awayTeam);
                 } else { // away team wins
