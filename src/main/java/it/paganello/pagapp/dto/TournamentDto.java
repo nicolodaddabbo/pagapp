@@ -1,10 +1,7 @@
 package it.paganello.pagapp.dto;
 
-import it.paganello.pagapp.entities.Team;
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
 
-import javax.persistence.Transient;
 import java.util.List;
 
 public class TournamentDto {

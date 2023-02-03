@@ -2,8 +2,6 @@ package it.paganello.pagapp.controllers;
 
 import it.paganello.pagapp.dto.RoundDto;
 import it.paganello.pagapp.dto.TournamentDto;
-import it.paganello.pagapp.entities.Round;
-import it.paganello.pagapp.entities.Tournament;
 import it.paganello.pagapp.services.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

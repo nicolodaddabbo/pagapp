@@ -3,7 +3,6 @@ package it.paganello.pagapp.controllers;
 import java.util.Optional;
 
 import it.paganello.pagapp.dto.MatchDto;
-import it.paganello.pagapp.entities.Match;
 import it.paganello.pagapp.services.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

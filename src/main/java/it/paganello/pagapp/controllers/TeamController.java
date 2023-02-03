@@ -3,7 +3,6 @@ package it.paganello.pagapp.controllers;
 import java.util.Optional;
 
 import it.paganello.pagapp.dto.TeamDto;
-import it.paganello.pagapp.entities.Team;
 import it.paganello.pagapp.services.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
