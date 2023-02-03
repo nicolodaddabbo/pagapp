@@ -1,19 +1,18 @@
 package it.paganello.pagapp.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="MTC_MATCH")
-public class Match extends EntityBaseData{
-	
+public class Match {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "CREATED")
+	private LocalDateTime created;
+	@Column(name = "CHANGED")
+	private LocalDateTime changed;
 	@Column(name = "FIELD")
 	private String field;
 	@Column(name = "FINISHED")
@@ -90,6 +89,30 @@ public class Match extends EntityBaseData{
 	
 	public void setRound(Round round) {
 		this.round = round;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public LocalDateTime getCreated() {
+		return created;
+	}
+	
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+	
+	public LocalDateTime getChanged() {
+		return changed;
+	}
+	
+	public void setChanged(LocalDateTime changed) {
+		this.changed = changed;
 	}
 	
 	

@@ -1,24 +1,21 @@
 package it.paganello.pagapp.entities;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TEA_TEAM")
-public class Team extends EntityBaseData{
-	
+public class Team {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "CREATED")
+	private LocalDateTime created;
+	@Column(name = "CHANGED")
+	private LocalDateTime changed;
 	@Column(name = "NAME")
 	private String name;
 	@Column(name = "WINS")
@@ -138,4 +135,27 @@ public class Team extends EntityBaseData{
 		this.pool = pool;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public LocalDateTime getCreated() {
+		return created;
+	}
+	
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+	
+	public LocalDateTime getChanged() {
+		return changed;
+	}
+	
+	public void setChanged(LocalDateTime changed) {
+		this.changed = changed;
+	}
 }

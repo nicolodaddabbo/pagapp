@@ -1,26 +1,23 @@
 package it.paganello.pagapp.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.*;
 
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
-import it.paganello.pagapp.entities.Round;
-import it.paganello.pagapp.entities.Team;
 
 @Entity
 @Table(name = "TRN_TOURNAMENT")
-public class Tournament extends EntityBaseData{
-	
+public class Tournament {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "CREATED")
+	private LocalDateTime created;
+	@Column(name = "CHANGED")
+	private LocalDateTime changed;
 	@Column(name = "NAME")
 	private String name;
 	@Column(name = "CURRENT_RND")
@@ -47,6 +44,30 @@ public class Tournament extends EntityBaseData{
 		this.teams = new ArrayList<>(teams);
 	}
 	
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public LocalDateTime getCreated() {
+		return created;
+	}
+	
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+	
+	public LocalDateTime getChanged() {
+		return changed;
+	}
+	
+	public void setChanged(LocalDateTime changed) {
+		this.changed = changed;
+	}
 	
 	public String getName() {
 		return name;
@@ -80,13 +101,11 @@ public class Tournament extends EntityBaseData{
 		this.rounds = rounds;
 	}
 	
-	public List<MatchingAlgorithm> getMatchingAlgorithms() {
+	public List<MatchingAlgorithm> getDefaultMatchingAlgorithms() {
 		return defaultMatchingAlgorithms;
 	}
 	
-	public void setMatchingAlgorithms(List<MatchingAlgorithm> matchingAlgorithms) {
-		this.defaultMatchingAlgorithms = matchingAlgorithms;
+	public void setDefaultMatchingAlgorithms(List<MatchingAlgorithm> defaultMatchingAlgorithms) {
+		this.defaultMatchingAlgorithms = defaultMatchingAlgorithms;
 	}
-	
-	
 }

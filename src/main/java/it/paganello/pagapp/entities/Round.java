@@ -1,28 +1,22 @@
 package it.paganello.pagapp.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.*;
 
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
 
 @Entity
 @Table(name = "ROU_ROUND")
-public class Round extends EntityBaseData{
-	
+public class Round {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "CREATED")
+	private LocalDateTime created;
+	@Column(name = "CHANGED")
+	private LocalDateTime changed;
 	@Column(name = "NUMBER")
 	private int roundNumber;
 	@Column(name = "FINISHED")
@@ -111,6 +105,30 @@ public class Round extends EntityBaseData{
 	
 	public void setMatchingAlgorithmName(MatchingAlgorithmName matchingAlgorithmName) { // forse devo passargli un id?
 		this.matchingAlgorithmName = matchingAlgorithmName;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public LocalDateTime getCreated() {
+		return created;
+	}
+	
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+	
+	public LocalDateTime getChanged() {
+		return changed;
+	}
+	
+	public void setChanged(LocalDateTime changed) {
+		this.changed = changed;
 	}
 	
 }
