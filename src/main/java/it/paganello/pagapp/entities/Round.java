@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
+import it.paganello.pagapp.enums.MatchingAlgorithmName;
 
 @Entity
 @Table(name = "ROU_ROUND")
