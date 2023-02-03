@@ -23,6 +23,9 @@ public class Tournament {
 	@Column(name = "CURRENT_RND")
 	private int currentRoundNumber;
 	
+	@Column(name = "TYPE")
+	private String type;
+	
 	@OneToMany(mappedBy = "tournament")
 	private List<Team> teams;
 	@OneToMany(mappedBy = "tournament")
@@ -108,4 +111,13 @@ public class Tournament {
 	public void setDefaultMatchingAlgorithms(List<MatchingAlgorithm> defaultMatchingAlgorithms) {
 		this.defaultMatchingAlgorithms = defaultMatchingAlgorithms;
 	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }
