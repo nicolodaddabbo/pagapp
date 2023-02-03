@@ -1,4 +1,4 @@
-package it.paganello.pagapp.matchingAlgorithm;
+package it.paganello.pagapp.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -9,7 +9,7 @@ public enum MatchingAlgorithmName {
 	
 	private final String name;
 	
-	private MatchingAlgorithmName(final String name) {
+	MatchingAlgorithmName(final String name) {
 		this.name = name;
 	}
 	
