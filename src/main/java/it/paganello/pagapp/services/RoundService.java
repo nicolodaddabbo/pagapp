@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithm;
 import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmFactory;
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
+import it.paganello.pagapp.enums.MatchingAlgorithmName;
 import it.paganello.pagapp.entities.Tournament;
 
 @Service

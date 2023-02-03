@@ -1,6 +1,6 @@
 package it.paganello.pagapp.dto;
 
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
+import it.paganello.pagapp.enums.MatchingAlgorithmName;
 
 import java.util.List;
 

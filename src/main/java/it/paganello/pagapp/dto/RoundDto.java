@@ -2,8 +2,7 @@ package it.paganello.pagapp.dto;
 
 import java.util.List;
 
-import it.paganello.pagapp.dto.MatchDto;
-import it.paganello.pagapp.matchingAlgorithm.MatchingAlgorithmName;
+import it.paganello.pagapp.enums.MatchingAlgorithmName;
 
 public class RoundDto {
 	private Long id;
